@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.sqlite
+*.db-journal
+.env
+.venv/
+venv/
+.env.local
+
+# Allow backend/games.db while ignoring other db files
+*.db
+!backend/games.db
+
+# Duplicate poster directory (root posters/ is tracked)
+backend/posters/
+
+# Node
+frontend/node_modules/
+frontend/.vite/
+*.log
+
+# Scratch and temporary artifacts
+scratch_*.py
+*_output.txt
+steamrip_home.html
+=
+
+# OS
+.DS_Store
+Thumbs.db

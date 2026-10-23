@@ -1,0 +1,410 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #0e0b16;
+    --bg-surface: #141021;
+    --bg-card: #191428;
+    --bg-card-hover: #221b36;
+    --border-subtle: #261f38;
+    --border-glow: #3d3159;
+    --color-purple: #c537ff;
+    --color-purple-dark: #7e22ce;
+    --color-red: #ff0505;
+    --color-blue: #007dff;
+    --color-emerald: #10b981;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: #f1f0f5;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Custom sleek scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0812;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2b2240;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #473868;
+  }
+}
+
+/* Glassmorphism Navigation */
+.steamrip-header {
+  background: rgba(18, 14, 28, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.steamrip-nav-item {
+  color: #c9c5d8;
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  padding: 8px 13px;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.steamrip-nav-item:hover {
+  color: #ffffff;
+  background-color: rgba(197, 55, 255, 0.12);
+}
+
+.steamrip-nav-item.active {
+  color: #ffffff;
+  background-color: rgba(197, 55, 255, 0.18);
+  box-shadow: 0 0 12px rgba(197, 55, 255, 0.25);
+}
+
+/* Nav Dropdown */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 260px;
+  background: #181326;
+  border: 1px solid #33254e;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(197, 55, 255, 0.15);
+  padding: 8px;
+  display: none;
+  z-index: 60;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown-menu:hover {
+  display: block;
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #c9c5d8;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.nav-dropdown-item:hover {
+  color: #ffffff;
+  background-color: #271e3d;
+  padding-left: 16px;
+}
+
+.nav-dropdown-item.active {
+  color: #c537ff;
+  background-color: #271e3d;
+}
+
+/* SteamRIP Section Title */
+.the-global-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #231b34;
+}
+
+.the-global-title .the-subtitle {
+  font-size: 19px;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-left: 16px;
+}
+
+.the-global-title .the-subtitle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  bottom: 1px;
+  width: 5px;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, #ff0505, #c537ff);
+  box-shadow: 0 0 8px rgba(197, 55, 255, 0.5);
+}
+
+/* SteamRIP Game Card */
+.post-item {
+  position: relative;
+  background-color: #171324;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #251e36;
+  transition: transform 0.28s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-item:hover {
+  transform: translateY(-6px);
+  border-color: #523f77;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 55, 255, 0.2);
+}
+
+.post-thumb-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.38;
+  overflow: hidden;
+  background-color: #0f0c18;
+}
+
+.post-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.post-item:hover .post-thumb-img {
+  transform: scale(1.08);
+}
+
+/* SteamRIP Badges */
+.post-cat {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(135deg, #ff0505 0%, #d90429 100%);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 3.5px 9px;
+  border-radius: 35px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tagmetafield {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(14, 11, 22, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 35px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Card Gradient & Text Overlay */
+.post-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(14, 11, 22, 0.98) 0%,
+    rgba(14, 11, 22, 0.82) 36%,
+    rgba(14, 11, 22, 0.2) 65%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 13px;
+  z-index: 1;
+}
+
+.game-meta-line {
+  font-size: 11px;
+  color: #c9c5d8;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.the-post-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s ease;
+}
+
+.post-item:hover .the-post-title {
+  color: #c537ff;
+}
+
+/* SteamRIP Shortcode Download Buttons */
+.shortc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #ffffff !important;
+  padding: 13px 24px;
+  border-radius: 8px;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
+
+.shortc-button.purple {
+  background: linear-gradient(135deg, #7e22ce 0%, #9333ea 100%);
+  border: 1px solid #a855f7;
+}
+
+.shortc-button.purple:hover {
+  background: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(147, 51, 234, 0.5);
+}
+
+.shortc-button.blue {
+  background: linear-gradient(135deg, #0284c7 0%, #007dff 100%);
+  border: 1px solid #38bdf8;
+}
+
+.shortc-button.blue:hover {
+  background: linear-gradient(135deg, #007dff 0%, #38bdf8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 125, 255, 0.5);
+}
+
+.shortc-button.green {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  border: 1px solid #34d399;
+}
+
+.shortc-button.green:hover {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5);
+}
+
+/* Secondary Action Button */
+.btn-secondary {
+  background: #1e182e;
+  border: 1px solid #32284b;
+  color: #c9c5d8;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: #2a2240;
+  border-color: #4f3b73;
+  color: #ffffff;
+}
+
+/* Pagination Pills */
+.page-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 15px;
+  border-radius: 35px;
+  font-size: 13px;
+  font-weight: 700;
+  background-color: #1a1529;
+  border: 1px solid #2d2345;
+  color: #c9c5d8;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.page-nav-pill:hover:not(:disabled) {
+  background-color: #292040;
+  border-color: #513b78;
+  color: #ffffff;
+}
+
+.page-nav-pill.active {
+  background-color: #ff0505;
+  border-color: #ff0505;
+  color: #ffffff;
+  box-shadow: 0 2px 12px rgba(255, 5, 5, 0.4);
+}
+
+.page-nav-pill:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* NProgress purple theme */
+#nprogress .bar {
+  background: #c537ff !important;
+  height: 3px !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #c537ff, 0 0 5px #c537ff !important;
+}
