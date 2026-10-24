@@ -1,11 +1,16 @@
 import os
+import sys
 from contextlib import asynccontextmanager
+from pathlib import Path
+
+# Ensure backend root is on sys.path so app imports resolve whether started from repo root or backend/
+BACKEND_DIR = Path(__file__).resolve().parent.parent
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from fastapi.staticfiles import StaticFiles
-from pathlib import Path
 
 from app.api import download, fixtures, games
 from app.database import init_db
