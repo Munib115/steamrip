@@ -1,9 +1,28 @@
-export const API_BASE = import.meta.env.VITE_API_URL || "";
+export const API_BASE = (
+  import.meta.env.VITE_API_URL ||
+  (typeof window !== "undefined" && window.localStorage?.getItem("VITE_API_URL")) ||
+  ""
+).replace(/\/+$/, "");
 
 export function getPosterUrl(url) {
   if (!url) return "";
   if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
   return `${API_BASE}${url.startsWith("/") ? "" : "/"}${url}`;
+}
+
+async function parseJsonResponse(res) {
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const contentType = res.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    const text = await res.text();
+    if (text.trim().startsWith("<!DOCTYPE") || text.trim().startsWith("<html")) {
+      throw new Error(
+        "Backend unreachable (received HTML instead of JSON). Please set VITE_API_URL in your Vercel Environment Variables to your Render backend URL (e.g., https://your-backend.onrender.com) and Redeploy."
+      );
+    }
+    throw new Error(`Expected JSON but received: ${text.slice(0, 100)}`);
+  }
+  return res.json();
 }
 
 export async function fetchGames({ page = 1, pageSize = 24, search = "", category = "", sort = "latest" } = {}) {
@@ -14,32 +33,32 @@ export async function fetchGames({ page = 1, pageSize = 24, search = "", categor
   const res = await fetch(`${API_BASE}/games?${qs}`, {
     headers: { Accept: "application/json" },
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  return parseJsonResponse(res);
 }
 
 export async function fetchGame(id) {
   const res = await fetch(`${API_BASE}/games/${id}`, {
     headers: { Accept: "application/json" },
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  return parseJsonResponse(res);
 }
 
 export async function fetchCategories() {
   try {
-    const res = await fetch(`${API_BASE}/games/categories`);
-    if (!res.ok) return [];
-    return await res.json();
+    const res = await fetch(`${API_BASE}/games/categories`, {
+      headers: { Accept: "application/json" },
+    });
+    return await parseJsonResponse(res);
   } catch (e) {
     return [];
   }
 }
 
 export async function fetchRandomGame() {
-  const res = await fetch(`${API_BASE}/games/random`);
-  if (!res.ok) throw new Error("No random game available");
-  return res.json();
+  const res = await fetch(`${API_BASE}/games/random`, {
+    headers: { Accept: "application/json" },
+  });
+  return parseJsonResponse(res);
 }
 
 export function downloadUrl(id, fileId) {

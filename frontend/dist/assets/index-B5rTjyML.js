@@ -1,9 +1,9 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))o(a);new MutationObserver(a=>{for(const n of a)if(n.type==="childList")for(const i of n.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&o(i)}).observe(document,{childList:!0,subtree:!0});function s(a){const n={};return a.integrity&&(n.integrity=a.integrity),a.referrerPolicy&&(n.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?n.credentials="include":a.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(a){if(a.ep)return;a.ep=!0;const n=s(a);fetch(a.href,n)}})();const R="";function I(e){return e?e.startsWith("http://")||e.startsWith("https://")||e.startsWith("data:")?e:`${R}${e.startsWith("/")?"":"/"}${e}`:""}async function y({page:e=1,pageSize:t=24,search:s="",category:o="",sort:a="latest"}={}){const n=new URLSearchParams({page:String(e),page_size:String(t)});s&&n.set("search",s),o&&n.set("category",o),a&&n.set("sort",a);const i=await fetch(`${R}/games?${n}`,{headers:{Accept:"application/json"}});if(!i.ok)throw new Error(`HTTP ${i.status}`);return i.json()}async function D(e){const t=await fetch(`${R}/games/${e}`,{headers:{Accept:"application/json"}});if(!t.ok)throw new Error(`HTTP ${t.status}`);return t.json()}async function z(){const e=await fetch(`${R}/games/random`);if(!e.ok)throw new Error("No random game available");return e.json()}const c=document.getElementById("app");function r(e){const t=document.createElement("div");return t.textContent=e||"",t.innerHTML}const S=[{name:"Action",slug:"action"},{name:"Adventure",slug:"adventure"},{name:"Anime",slug:"anime"},{name:"Building",slug:"building"},{name:"First-person Shooter",slug:"fps"},{name:"Horror",slug:"horror"},{name:"Indie",slug:"indie"},{name:"Multiplayer",slug:"multiplayer"},{name:"Open World",slug:"open-world"},{name:"Racing",slug:"racing"},{name:"Role-playing Game",slug:"rpg"},{name:"Sci-fi",slug:"sci-fi"},{name:"Shooters",slug:"shooting"},{name:"Simulation",slug:"simulation"},{name:"Sports",slug:"sports"},{name:"Strategy",slug:"strategy"},{name:"Survival",slug:"survival"},{name:"Virtual Reality",slug:"vr"}];function L(e="",t=""){const s=(e+" "+t).toLowerCase();return s.includes("vr")||s.includes("virtual reality")?"Virtual Reality":s.includes("horror")||s.includes("somnia")||s.includes("hellraiser")?"Horror":s.includes("anime")||s.includes("slayer")||s.includes("yaiba")?"Anime":s.includes("racing")||s.includes("forza")||s.includes("rally")?"Racing":s.includes("simulator")||s.includes("bakery")||s.includes("cafe")?"Simulation":s.includes("rpg")||s.includes("witcher")||s.includes("elden")||s.includes("eternia")?"Role-playing Game":s.includes("multiplayer")||s.includes("co-op")||s.includes("friends")?"Multiplayer":s.includes("adventure")||s.includes("harvest")||s.includes("explore")?"Adventure":s.includes("indie")||s.includes("dupery")||s.includes("paperhead")?"Indie":"Action"}function E(e=""){const t=e.match(/Build\s+\d+/i);if(t)return t[0];const s=e.match(/v\d+(\.\d+)+/i);return s?s[0]:e.toLowerCase().includes("co-op")?"Co-op":e.toLowerCase().includes("recompiled")?"Recompiled":null}function q(e=""){return e.replace(/\s*Free\s*Download\s*/i,"").replace(/\s*\([^)]*\)\s*$/,"").trim()||e}let k;function M(){if(!("IntersectionObserver"in window)){document.querySelectorAll("img[data-src]").forEach(e=>{e.src=e.dataset.src,e.classList.remove("opacity-0")});return}k&&k.disconnect(),k=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting){const s=t.target;s.src=s.dataset.src,s.classList.remove("opacity-0"),k.unobserve(s)}})},{rootMargin:"300px",threshold:0}),document.querySelectorAll("img[data-src]").forEach(e=>k.observe(e))}function H(e){let t=document.getElementById("toast");t||(t=document.createElement("div"),t.id="toast",t.className="fixed bottom-6 right-6 bg-[#181326] border border-[#a855f7] text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl z-50 transition-all",document.body.appendChild(t)),t.innerHTML=`
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))o(a);new MutationObserver(a=>{for(const n of a)if(n.type==="childList")for(const i of n.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&o(i)}).observe(document,{childList:!0,subtree:!0});function s(a){const n={};return a.integrity&&(n.integrity=a.integrity),a.referrerPolicy&&(n.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?n.credentials="include":a.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(a){if(a.ep)return;a.ep=!0;const n=s(a);fetch(a.href,n)}})();var P;const R=(typeof window<"u"&&((P=window.localStorage)==null?void 0:P.getItem("VITE_API_URL"))||"").replace(/\/+$/,"");function I(e){return e?e.startsWith("http://")||e.startsWith("https://")||e.startsWith("data:")?e:`${R}${e.startsWith("/")?"":"/"}${e}`:""}async function H(e){if(!e.ok)throw new Error(`HTTP ${e.status}`);if(!(e.headers.get("content-type")||"").includes("application/json")){const s=await e.text();throw s.trim().startsWith("<!DOCTYPE")||s.trim().startsWith("<html")?new Error("Backend unreachable (received HTML instead of JSON). Please set VITE_API_URL in your Vercel Environment Variables to your Render backend URL (e.g., https://your-backend.onrender.com) and Redeploy."):new Error(`Expected JSON but received: ${s.slice(0,100)}`)}return e.json()}async function y({page:e=1,pageSize:t=24,search:s="",category:o="",sort:a="latest"}={}){const n=new URLSearchParams({page:String(e),page_size:String(t)});s&&n.set("search",s),o&&n.set("category",o),a&&n.set("sort",a);const i=await fetch(`${R}/games?${n}`,{headers:{Accept:"application/json"}});return H(i)}async function q(e){const t=await fetch(`${R}/games/${e}`,{headers:{Accept:"application/json"}});return H(t)}async function F(){const e=await fetch(`${R}/games/random`,{headers:{Accept:"application/json"}});return H(e)}const c=document.getElementById("app");function r(e){const t=document.createElement("div");return t.textContent=e||"",t.innerHTML}const S=[{name:"Action",slug:"action"},{name:"Adventure",slug:"adventure"},{name:"Anime",slug:"anime"},{name:"Building",slug:"building"},{name:"First-person Shooter",slug:"fps"},{name:"Horror",slug:"horror"},{name:"Indie",slug:"indie"},{name:"Multiplayer",slug:"multiplayer"},{name:"Open World",slug:"open-world"},{name:"Racing",slug:"racing"},{name:"Role-playing Game",slug:"rpg"},{name:"Sci-fi",slug:"sci-fi"},{name:"Shooters",slug:"shooting"},{name:"Simulation",slug:"simulation"},{name:"Sports",slug:"sports"},{name:"Strategy",slug:"strategy"},{name:"Survival",slug:"survival"},{name:"Virtual Reality",slug:"vr"}];function L(e="",t=""){const s=(e+" "+t).toLowerCase();return s.includes("vr")||s.includes("virtual reality")?"Virtual Reality":s.includes("horror")||s.includes("somnia")||s.includes("hellraiser")?"Horror":s.includes("anime")||s.includes("slayer")||s.includes("yaiba")?"Anime":s.includes("racing")||s.includes("forza")||s.includes("rally")?"Racing":s.includes("simulator")||s.includes("bakery")||s.includes("cafe")?"Simulation":s.includes("rpg")||s.includes("witcher")||s.includes("elden")||s.includes("eternia")?"Role-playing Game":s.includes("multiplayer")||s.includes("co-op")||s.includes("friends")?"Multiplayer":s.includes("adventure")||s.includes("harvest")||s.includes("explore")?"Adventure":s.includes("indie")||s.includes("dupery")||s.includes("paperhead")?"Indie":"Action"}function D(e=""){const t=e.match(/Build\s+\d+/i);if(t)return t[0];const s=e.match(/v\d+(\.\d+)+/i);return s?s[0]:e.toLowerCase().includes("co-op")?"Co-op":e.toLowerCase().includes("recompiled")?"Recompiled":null}function O(e=""){return e.replace(/\s*Free\s*Download\s*/i,"").replace(/\s*\([^)]*\)\s*$/,"").trim()||e}let k;function M(){if(!("IntersectionObserver"in window)){document.querySelectorAll("img[data-src]").forEach(e=>{e.src=e.dataset.src,e.classList.remove("opacity-0")});return}k&&k.disconnect(),k=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting){const s=t.target;s.src=s.dataset.src,s.classList.remove("opacity-0"),k.unobserve(s)}})},{rootMargin:"300px",threshold:0}),document.querySelectorAll("img[data-src]").forEach(e=>k.observe(e))}function B(e){let t=document.getElementById("toast");t||(t=document.createElement("div"),t.id="toast",t.className="fixed bottom-6 right-6 bg-[#181326] border border-[#a855f7] text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl z-50 transition-all",document.body.appendChild(t)),t.innerHTML=`
     <div class="flex items-center gap-2">
       <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
       <span>${r(e)}</span>
     </div>
-  `,t.classList.remove("hidden"),setTimeout(()=>t.classList.add("hidden"),3500)}let B;async function F(e){const t=document.getElementById("search-live-dropdown");if(t){if(e=(e||"").trim(),e.length<2){t.classList.add("hidden");return}try{const s=await y({page:1,pageSize:6,search:e});if(!s.items||s.items.length===0){t.innerHTML=`<div class="p-3 text-xs text-gray-400 text-center">No games found matching "${r(e)}"</div>`,t.classList.remove("hidden");return}const o=s.items.map(a=>{const n=I(a.thumbnail_url);return`
+  `,t.classList.remove("hidden"),setTimeout(()=>t.classList.add("hidden"),3500)}let G;async function V(e){const t=document.getElementById("search-live-dropdown");if(t){if(e=(e||"").trim(),e.length<2){t.classList.add("hidden");return}try{const s=await y({page:1,pageSize:6,search:e});if(!s.items||s.items.length===0){t.innerHTML=`<div class="p-3 text-xs text-gray-400 text-center">No games found matching "${r(e)}"</div>`,t.classList.remove("hidden");return}const o=s.items.map(a=>{const n=I(a.thumbnail_url);return`
           <div
             onclick="goRoute('/game/${a.id}'); document.getElementById('search-live-dropdown').classList.add('hidden');"
             class="p-2.5 hover:bg-[#251d38] flex items-center gap-3 cursor-pointer transition border-b border-[#281f3b] last:border-none"
@@ -236,7 +236,7 @@
         </div>
       </div>
     </footer>
-  `}function C(e){const t=I(e.thumbnail_url),s=e.category||L(e.title,e.slug),o=E(e.title),a=e.title,n=t?`data-src="${r(t)}"`:"",i=o?`<span class="tagmetafield">${r(o)}</span>`:"";return`
+  `}function C(e){const t=I(e.thumbnail_url),s=e.category||L(e.title,e.slug),o=D(e.title),a=e.title,n=t?`data-src="${r(t)}"`:"",i=o?`<span class="tagmetafield">${r(o)}</span>`:"";return`
     <article data-id="${e.id}" class="post-item group cursor-pointer" onclick="goRoute('/game/${e.id}')">
       <div class="post-thumb-wrap">
         <span class="post-cat">${r(s)}</span>
@@ -276,7 +276,7 @@
       <button onclick="goRoute('/category/vr');" class="px-3.5 py-1.5 rounded-full ${e==="vr"?"bg-[#ff0505] text-white shadow-md":"bg-[#1e172e] text-gray-300 hover:text-white hover:bg-[#2c2242]"} transition">VR</button>
       <button onclick="goRoute('/top-games');" class="px-3.5 py-1.5 rounded-full ${e==="top"?"bg-[#ff0505] text-white shadow-md":"bg-[#1e172e] text-gray-300 hover:text-white hover:bg-[#2c2242]"} transition">Top Games</button>
     </div>
-  `}function g(){const e=document.getElementById("header-search");e&&(e.oninput=t=>{clearTimeout(B),B=setTimeout(()=>{F(t.target.value)},250)},e.onkeydown=t=>{if(t.key==="Enter"){const s=document.getElementById("search-live-dropdown");s&&s.classList.add("hidden");const o=e.value.trim();h(`/?search=${encodeURIComponent(o)}`)}}),document.addEventListener("click",t=>{const s=document.getElementById("search-live-dropdown");s&&!t.target.closest("#header-search")&&!t.target.closest("#search-live-dropdown")&&s.classList.add("hidden")})}async function $(){const e=new URLSearchParams(window.location.search),t=Math.max(1,parseInt(e.get("page")||"1",10)),s=e.get("search")||"",o=24;c.innerHTML=`
+  `}function g(){const e=document.getElementById("header-search");e&&(e.oninput=t=>{clearTimeout(G),G=setTimeout(()=>{V(t.target.value)},250)},e.onkeydown=t=>{if(t.key==="Enter"){const s=document.getElementById("search-live-dropdown");s&&s.classList.add("hidden");const o=e.value.trim();h(`/?search=${encodeURIComponent(o)}`)}}),document.addEventListener("click",t=>{const s=document.getElementById("search-live-dropdown");s&&!t.target.closest("#header-search")&&!t.target.closest("#search-live-dropdown")&&s.classList.add("hidden")})}async function $(){const e=new URLSearchParams(window.location.search),t=Math.max(1,parseInt(e.get("page")||"1",10)),s=e.get("search")||"",o=24;c.innerHTML=`
     ${p(s,"home")}
 
     <!-- Hero Notice Ticker -->
@@ -324,7 +324,7 @@
         <p class="mb-2">Database Connection Notice</p>
         <p class="text-xs text-gray-400">${r(i.message)}</p>
       </div>
-    `}}async function O(e){const t=new URLSearchParams(window.location.search),s=Math.max(1,parseInt(t.get("page")||"1",10)),o=24,a=S.find(l=>l.slug===e)||{name:e.charAt(0).toUpperCase()+e.slice(1)};c.innerHTML=`
+    `}}async function U(e){const t=new URLSearchParams(window.location.search),s=Math.max(1,parseInt(t.get("page")||"1",10)),o=24,a=S.find(l=>l.slug===e)||{name:e.charAt(0).toUpperCase()+e.slice(1)};c.innerHTML=`
     ${p("",e)}
 
     <main class="max-w-[1250px] mx-auto px-4 py-8">
@@ -365,7 +365,7 @@
       <div class="col-span-full py-16 text-center text-red-400 font-bold bg-[#1b1426] border border-red-900/40 rounded-xl p-6">
         <p>Failed to load category: ${r(l.message)}</p>
       </div>
-    `}}async function V(){const e=new URLSearchParams(window.location.search),t=Math.max(1,parseInt(e.get("page")||"1",10)),s=24;c.innerHTML=`
+    `}}async function N(){const e=new URLSearchParams(window.location.search),t=Math.max(1,parseInt(e.get("page")||"1",10)),s=24;c.innerHTML=`
     ${p("","top-games")}
 
     <main class="max-w-[1250px] mx-auto px-4 py-8">
@@ -382,7 +382,7 @@
       <div class="mt-14 flex items-center justify-center gap-2" id="pagination-container"></div>
     </main>
     ${u()}
-  `,g();const o=document.getElementById("games-grid"),a=document.getElementById("pagination-container");try{const n=await y({page:t,pageSize:s,sort:"top"});o.innerHTML=n.items.map(C).join(""),M(),o.querySelectorAll(".post-item").forEach(i=>{i.onclick=()=>h(`/game/${i.dataset.id}`)}),T(a,t,n.pages,i=>h(`/top-games?page=${i}`))}catch(n){o.innerHTML=`<div class="col-span-full py-16 text-center text-red-400 font-bold">${r(n.message)}</div>`}}async function U(){const e=new URLSearchParams(window.location.search),t=Math.max(1,parseInt(e.get("page")||"1",10)),s=24;c.innerHTML=`
+  `,g();const o=document.getElementById("games-grid"),a=document.getElementById("pagination-container");try{const n=await y({page:t,pageSize:s,sort:"top"});o.innerHTML=n.items.map(C).join(""),M(),o.querySelectorAll(".post-item").forEach(i=>{i.onclick=()=>h(`/game/${i.dataset.id}`)}),T(a,t,n.pages,i=>h(`/top-games?page=${i}`))}catch(n){o.innerHTML=`<div class="col-span-full py-16 text-center text-red-400 font-bold">${r(n.message)}</div>`}}async function W(){const e=new URLSearchParams(window.location.search),t=Math.max(1,parseInt(e.get("page")||"1",10)),s=24;c.innerHTML=`
     ${p("","updated-games")}
     <main class="max-w-[1250px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -398,7 +398,7 @@
       <div class="mt-14 flex items-center justify-center gap-2" id="pagination-container"></div>
     </main>
     ${u()}
-  `,g();const o=document.getElementById("games-grid"),a=document.getElementById("pagination-container");try{const n=await y({page:t,pageSize:s,sort:"updated"});o.innerHTML=n.items.map(C).join(""),M(),o.querySelectorAll(".post-item").forEach(i=>{i.onclick=()=>h(`/game/${i.dataset.id}`)}),T(a,t,n.pages,i=>h(`/updated-games?page=${i}`))}catch(n){o.innerHTML=`<div class="col-span-full py-16 text-center text-red-400 font-bold">${r(n.message)}</div>`}}async function N(){c.innerHTML=`
+  `,g();const o=document.getElementById("games-grid"),a=document.getElementById("pagination-container");try{const n=await y({page:t,pageSize:s,sort:"updated"});o.innerHTML=n.items.map(C).join(""),M(),o.querySelectorAll(".post-item").forEach(i=>{i.onclick=()=>h(`/game/${i.dataset.id}`)}),T(a,t,n.pages,i=>h(`/updated-games?page=${i}`))}catch(n){o.innerHTML=`<div class="col-span-full py-16 text-center text-red-400 font-bold">${r(n.message)}</div>`}}async function _(){c.innerHTML=`
     ${p("","games-list")}
     <main class="max-w-[1250px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -458,7 +458,7 @@
             ${d}
           </tbody>
         </table>
-      `};var e=n;const t=await y({page:1,pageSize:100,sort:"title"}),s=t.items||[],o=document.getElementById("list-table-container"),a=document.getElementById("list-counter");a&&(a.textContent=`Showing ${s.length} of ${t.total} games in database`),n(s);const i=document.getElementById("list-filter-input");i&&(i.oninput=l=>{const d=l.target.value.toLowerCase().trim(),f=s.filter(x=>x.title.toLowerCase().includes(d)||x.category&&x.category.toLowerCase().includes(d));n(f)})}catch(t){const s=document.getElementById("list-table-container");s&&(s.innerHTML=`<div class="p-8 text-center text-red-400 font-bold">${r(t.message)}</div>`)}}function W(){const e=[{title:"Top Co-op & Multiplayer Hits",slug:"multiplayer",desc:"Best games to play online with friends without complicated setup.",count:"15+ Games"},{title:"Horror & Psychological Thrillers",slug:"horror",desc:"Terrifying survival horror, indie nightmares, and escape rooms.",count:"20+ Games"},{title:"High-Octane Racing & Simulators",slug:"racing",desc:"Top racing simulators, arcade drifters, and realistic vehicle mechanics.",count:"23+ Games"},{title:"Epic Role-Playing & Open Worlds",slug:"rpg",desc:"Immersive open worlds, fantasy epics, and deep story campaigns.",count:"10+ Games"},{title:"Virtual Reality (VR) Masterpieces",slug:"vr",desc:"Full VR experiences ready for Quest, Index, and PCVR headsets.",count:"8+ Games"},{title:"Action & Fast Shooters",slug:"action",desc:"Adrenaline-fueled combat, tactical shooters, and high-energy brawlers.",count:"25+ Games"}];c.innerHTML=`
+      `};var e=n;const t=await y({page:1,pageSize:100,sort:"title"}),s=t.items||[],o=document.getElementById("list-table-container"),a=document.getElementById("list-counter");a&&(a.textContent=`Showing ${s.length} of ${t.total} games in database`),n(s);const i=document.getElementById("list-filter-input");i&&(i.oninput=l=>{const d=l.target.value.toLowerCase().trim(),f=s.filter(x=>x.title.toLowerCase().includes(d)||x.category&&x.category.toLowerCase().includes(d));n(f)})}catch(t){const s=document.getElementById("list-table-container");s&&(s.innerHTML=`<div class="p-8 text-center text-red-400 font-bold">${r(t.message)}</div>`)}}function J(){const e=[{title:"Top Co-op & Multiplayer Hits",slug:"multiplayer",desc:"Best games to play online with friends without complicated setup.",count:"15+ Games"},{title:"Horror & Psychological Thrillers",slug:"horror",desc:"Terrifying survival horror, indie nightmares, and escape rooms.",count:"20+ Games"},{title:"High-Octane Racing & Simulators",slug:"racing",desc:"Top racing simulators, arcade drifters, and realistic vehicle mechanics.",count:"23+ Games"},{title:"Epic Role-Playing & Open Worlds",slug:"rpg",desc:"Immersive open worlds, fantasy epics, and deep story campaigns.",count:"10+ Games"},{title:"Virtual Reality (VR) Masterpieces",slug:"vr",desc:"Full VR experiences ready for Quest, Index, and PCVR headsets.",count:"8+ Games"},{title:"Action & Fast Shooters",slug:"action",desc:"Adrenaline-fueled combat, tactical shooters, and high-energy brawlers.",count:"25+ Games"}];c.innerHTML=`
     ${p("","collections")}
     <main class="max-w-[1250px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -481,7 +481,7 @@
       </div>
     </main>
     ${u()}
-  `,g()}function _(){const e=[{q:"Are the games on SteamRIP completely safe to download?",a:"Yes, 100%. All games are obtained directly from clean verified sources and pre-installed without any adware, cryptominers, or malware. We compress the raw clean game directories so you can extract and play immediately."},{q:"Do I need to install or run any installer setups?",a:"No! That is the core advantage of SteamRIP. All games are 100% Pre-Installed. You simply extract the compressed archive (.zip or .rar) using WinRAR or 7-Zip, and run the game's executable (.exe) as Administrator."},{q:"What should I do if I get a missing DLL error (e.g. VCRUNTIME140.dll or MSVCP140.dll)?",a:"Missing DLL errors occur when your Windows installation lacks the Microsoft Visual C++ Redistributable packages or DirectX runtimes. Download and install the 'Visual C++ All-in-One' runtime pack (2015-2022) and run the DirectX End-User Runtime installer."},{q:"Why is Windows Defender or my antivirus flagging the game executable?",a:"Game fixes and Steam emulators are frequently detected as false positives by Windows Defender and third-party antivirus software because they redirect Steam API calls. You can safely add the game directory to your antivirus exclusions list."},{q:"Where are game save files located?",a:"Depending on the game, save files are usually stored in '%APPDATA%', '%LOCALAPPDATA%', or 'C:\\Users\\YourUser\\Saved Games', or directly within the game folder under a 'saves' or 'Steam_settings' subfolder."},{q:"Can I play multiplayer and online co-op?",a:"Games with a '+ Co-op' or 'Multiplayer' tag include online fixes (often using Steam Spacewar AppID 480). To play with friends, both you and your friend must have Steam open in the background."}];c.innerHTML=`
+  `,g()}function Z(){const e=[{q:"Are the games on SteamRIP completely safe to download?",a:"Yes, 100%. All games are obtained directly from clean verified sources and pre-installed without any adware, cryptominers, or malware. We compress the raw clean game directories so you can extract and play immediately."},{q:"Do I need to install or run any installer setups?",a:"No! That is the core advantage of SteamRIP. All games are 100% Pre-Installed. You simply extract the compressed archive (.zip or .rar) using WinRAR or 7-Zip, and run the game's executable (.exe) as Administrator."},{q:"What should I do if I get a missing DLL error (e.g. VCRUNTIME140.dll or MSVCP140.dll)?",a:"Missing DLL errors occur when your Windows installation lacks the Microsoft Visual C++ Redistributable packages or DirectX runtimes. Download and install the 'Visual C++ All-in-One' runtime pack (2015-2022) and run the DirectX End-User Runtime installer."},{q:"Why is Windows Defender or my antivirus flagging the game executable?",a:"Game fixes and Steam emulators are frequently detected as false positives by Windows Defender and third-party antivirus software because they redirect Steam API calls. You can safely add the game directory to your antivirus exclusions list."},{q:"Where are game save files located?",a:"Depending on the game, save files are usually stored in '%APPDATA%', '%LOCALAPPDATA%', or 'C:\\Users\\YourUser\\Saved Games', or directly within the game folder under a 'saves' or 'Steam_settings' subfolder."},{q:"Can I play multiplayer and online co-op?",a:"Games with a '+ Co-op' or 'Multiplayer' tag include online fixes (often using Steam Spacewar AppID 480). To play with friends, both you and your friend must have Steam open in the background."}];c.innerHTML=`
     ${p("","faq")}
     <main class="max-w-[1000px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -506,7 +506,7 @@
       </div>
     </main>
     ${u()}
-  `,g()}function Z(){c.innerHTML=`
+  `,g()}function Q(){c.innerHTML=`
     ${p("","steps-for-games")}
     <main class="max-w-[1050px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -585,7 +585,7 @@
       </div>
     </main>
     ${u()}
-  `,g()}function Q(){c.innerHTML=`
+  `,g()}function Y(){c.innerHTML=`
     ${p("","about")}
     <main class="max-w-[950px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -608,7 +608,7 @@
       </div>
     </main>
     ${u()}
-  `,g()}function J(){c.innerHTML=`
+  `,g()}function X(){c.innerHTML=`
     ${p("","request-games")}
     <main class="max-w-[850px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -637,7 +637,7 @@
       </div>
     </main>
     ${u()}
-  `,g()}window.handleRequestSubmit=e=>{e.preventDefault();const t=document.getElementById("req-title").value;H(`Request submitted for "${t}"!`),e.target.reset()};function Y(){c.innerHTML=`
+  `,g()}window.handleRequestSubmit=e=>{e.preventDefault();const t=document.getElementById("req-title").value;B(`Request submitted for "${t}"!`),e.target.reset()};function K(){c.innerHTML=`
     ${p()}
     <main class="max-w-[950px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -649,7 +649,7 @@
       </div>
     </main>
     ${u()}
-  `,g()}function X(){c.innerHTML=`
+  `,g()}function ee(){c.innerHTML=`
     ${p()}
     <main class="max-w-[950px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -661,7 +661,7 @@
       </div>
     </main>
     ${u()}
-  `,g()}function K(){c.innerHTML=`
+  `,g()}function te(){c.innerHTML=`
     ${p()}
     <main class="max-w-[850px] mx-auto px-4 py-8">
       <div class="the-global-title has-block-head-4 mb-4">
@@ -679,7 +679,7 @@
       </div>
     </main>
     ${u()}
-  `,g()}function ee(e){return e?e.includes("<p")||e.includes("<div")||e.includes("<br")?e.replace(/<style[^>]*>.*?<\/style>/gi,"").replace(/<script[^>]*>.*?<\/script>/gi,"").replace(/<(?!\/?(p|strong|b|em|i|br|ul|li)\b)[^>]+>/gi,""):`<p>${r(e)}</p>`:"<p>Pre-installed game ready to play without complex installation steps.</p>"}async function G(e){c.innerHTML=`
+  `,g()}function se(e){return e?e.includes("<p")||e.includes("<div")||e.includes("<br")?e.replace(/<style[^>]*>.*?<\/style>/gi,"").replace(/<script[^>]*>.*?<\/script>/gi,"").replace(/<(?!\/?(p|strong|b|em|i|br|ul|li)\b)[^>]+>/gi,""):`<p>${r(e)}</p>`:"<p>Pre-installed game ready to play without complex installation steps.</p>"}async function E(e){c.innerHTML=`
     ${p()}
     <main class="max-w-[1150px] mx-auto px-4 py-8">
       <div class="py-24 text-center text-gray-400 font-semibold flex flex-col items-center justify-center gap-3">
@@ -688,7 +688,7 @@
       </div>
     </main>
     ${u()}
-  `,g();try{const t=await D(e),s=I(t.thumbnail_url),o=t.category||L(t.title,t.slug),a=E(t.title),n=q(t.title),i=t.files||[],l=(t.files||[]).filter(b=>{const m=(b.url||"").toLowerCase(),v=(b.label||"").toLowerCase();return!(m.includes("://steamrip.com")||m.includes("//steamrip.com")||v.includes("buzzheavier")||m.includes("bzzhr.to")||m.includes("buzzheavier"))}),d=l.filter(b=>{const m=(b.url||"").toLowerCase();return(b.label||"").toLowerCase().includes("gofile")||m.includes("gofile.io")}),f=d.length>0?d:l;let x="";f.length>0?x=f.map(b=>{let m="text-purple-400 bg-purple-950/60 border-purple-800/40",v="purple";const w=b.label||"Direct Download";return w.toLowerCase().includes("gofile")?(m="text-emerald-400 bg-emerald-950/60 border-emerald-800/40",v="green"):w.toLowerCase().includes("fileditch")?(m="text-sky-400 bg-sky-950/60 border-sky-800/40",v="blue"):w.toLowerCase().includes("megadb")?(m="text-rose-400 bg-rose-950/60 border-rose-800/40",v="purple"):w.toLowerCase().includes("direct")&&(m="text-emerald-400 bg-emerald-950/60 border-emerald-800/40",v="green"),`
+  `,g();try{const t=await q(e),s=I(t.thumbnail_url),o=t.category||L(t.title,t.slug),a=D(t.title),n=O(t.title),i=t.files||[],l=(t.files||[]).filter(b=>{const m=(b.url||"").toLowerCase(),v=(b.label||"").toLowerCase();return!(m.includes("://steamrip.com")||m.includes("//steamrip.com")||v.includes("buzzheavier")||m.includes("bzzhr.to")||m.includes("buzzheavier"))}),d=l.filter(b=>{const m=(b.url||"").toLowerCase();return(b.label||"").toLowerCase().includes("gofile")||m.includes("gofile.io")}),f=d.length>0?d:l;let x="";f.length>0?x=f.map(b=>{let m="text-purple-400 bg-purple-950/60 border-purple-800/40",v="purple";const w=b.label||"Direct Download";return w.toLowerCase().includes("gofile")?(m="text-emerald-400 bg-emerald-950/60 border-emerald-800/40",v="green"):w.toLowerCase().includes("fileditch")?(m="text-sky-400 bg-sky-950/60 border-sky-800/40",v="blue"):w.toLowerCase().includes("megadb")?(m="text-rose-400 bg-rose-950/60 border-rose-800/40",v="purple"):w.toLowerCase().includes("direct")&&(m="text-emerald-400 bg-emerald-950/60 border-emerald-800/40",v="green"),`
             <div class="bg-[#1b152b] border border-[#2c2244] hover:border-[#5a4382] rounded-xl p-4 flex flex-col justify-between transition-all group">
               <div class="flex items-center justify-between mb-3">
                 <span class="inline-flex items-center gap-1.5 text-xs font-bold ${m} border px-2.5 py-1 rounded-full">
@@ -725,7 +725,7 @@
           </div>
           <p class="text-[11px] text-gray-400">High-speed cloud mirrors (GoFile, FileDitch, Mega) are currently indexing for this archive. Please refresh in a moment.</p>
         </div>
-      `;const P=t.requirements?`
+      `;const z=t.requirements?`
         <div class="mt-8 bg-[#141022] border border-[#2a203f] rounded-2xl p-6">
           <div class="the-global-title !mb-4 border-none pb-0">
             <h3 class="the-subtitle text-base">System Requirements</h3>
@@ -811,7 +811,7 @@
                   <h3 class="the-subtitle text-base">Game Description</h3>
                 </div>
                 <div class="text-xs sm:text-sm text-gray-300 leading-relaxed space-y-3 prose-dark">
-                  ${ee(t.description)}
+                  ${se(t.description)}
                 </div>
               </div>
 
@@ -837,7 +837,7 @@
             </div>
           </div>
 
-          ${P}
+          ${z}
 
           <!-- How to Run -->
           <div class="mt-8 bg-[#141022] border border-[#2a203f] rounded-2xl p-6">
@@ -891,4 +891,4 @@
     <button class="page-nav-pill" ${t>=s?"disabled":""} data-page="${t+1}">
       Next &rarr;
     </button>
-  `,e.innerHTML=a,e.querySelectorAll("button[data-page]").forEach(l=>{l.onclick=()=>{const d=parseInt(l.dataset.page,10);!isNaN(d)&&d>=1&&d<=s&&d!==t&&(o(d),window.scrollTo({top:0,behavior:"smooth"}))}})}function h(e){window.history.pushState({},"",e),j(),window.scrollTo({top:0,behavior:"smooth"})}window.goRoute=h;window.toggleMobileMenu=()=>{const e=document.getElementById("mobile-drawer");e&&e.classList.toggle("hidden")};window.copyLink=e=>{e&&(navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(e).then(()=>H("Direct link copied to clipboard!")).catch(()=>prompt("Copy download link:",e)):prompt("Copy download link:",e))};window.triggerRandomGame=async()=>{try{const e=await z();e&&e.id&&h(`/game/${e.id}`)}catch{H("Unable to pick random game right now.")}};async function j(){const e=window.location.pathname;if(e==="/"||e==="")await $();else if(e.startsWith("/game/")){const t=e.split("/")[2]||"",s=parseInt(t,10);if(!isNaN(s))await G(s);else if(t)try{const o=await y({search:t,pageSize:1});o.items&&o.items.length>0?await G(o.items[0].id):await $()}catch{await $()}else await $()}else if(e.startsWith("/category/")){const t=e.split("/")[2]||"";await O(t)}else e==="/top-games"?await V():e==="/updated-games"?await U():e==="/games-list"?await N():e==="/collections"?W():e==="/faq"?_():e==="/steps-for-games"?Z():e==="/about"?Q():e==="/request-games"?J():e==="/privacy-policy"?Y():e==="/terms-and-conditions"?X():e==="/contact-us"?K():await $()}window.addEventListener("popstate",j);document.addEventListener("DOMContentLoaded",j);
+  `,e.innerHTML=a,e.querySelectorAll("button[data-page]").forEach(l=>{l.onclick=()=>{const d=parseInt(l.dataset.page,10);!isNaN(d)&&d>=1&&d<=s&&d!==t&&(o(d),window.scrollTo({top:0,behavior:"smooth"}))}})}function h(e){window.history.pushState({},"",e),j(),window.scrollTo({top:0,behavior:"smooth"})}window.goRoute=h;window.toggleMobileMenu=()=>{const e=document.getElementById("mobile-drawer");e&&e.classList.toggle("hidden")};window.copyLink=e=>{e&&(navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(e).then(()=>B("Direct link copied to clipboard!")).catch(()=>prompt("Copy download link:",e)):prompt("Copy download link:",e))};window.triggerRandomGame=async()=>{try{const e=await F();e&&e.id&&h(`/game/${e.id}`)}catch{B("Unable to pick random game right now.")}};async function j(){const e=window.location.pathname;if(e==="/"||e==="")await $();else if(e.startsWith("/game/")){const t=e.split("/")[2]||"",s=parseInt(t,10);if(!isNaN(s))await E(s);else if(t)try{const o=await y({search:t,pageSize:1});o.items&&o.items.length>0?await E(o.items[0].id):await $()}catch{await $()}else await $()}else if(e.startsWith("/category/")){const t=e.split("/")[2]||"";await U(t)}else e==="/top-games"?await N():e==="/updated-games"?await W():e==="/games-list"?await _():e==="/collections"?J():e==="/faq"?Z():e==="/steps-for-games"?Q():e==="/about"?Y():e==="/request-games"?X():e==="/privacy-policy"?K():e==="/terms-and-conditions"?ee():e==="/contact-us"?te():await $()}window.addEventListener("popstate",j);document.addEventListener("DOMContentLoaded",j);
